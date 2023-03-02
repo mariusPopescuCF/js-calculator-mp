@@ -1,0 +1,166 @@
+body {
+  background-color: rgb(45, 62, 80);
+  padding: 0px;
+  margin: 0px;
+  
+}
+#historyDiv {
+    background-color: black;
+    color: rgb(255, 255, 255);
+    padding: 0px 25px 25px 25px;
+    margin: 25px 25px 25px 25px;
+    height: 250px;
+    text-align: right;
+    font-size: 25px;
+    overflow: hidden;
+  }
+#operationDiv {
+    background-color: rgb(7, 27, 1);
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 2px black, 0 0 25px Aquamarine, 0 0 5px Aqua;
+    vertical-align: middle;
+    padding: 25px;
+    margin: 25px 25px 25px 25px;
+    height: 25px;
+    position: relative;
+    font-size: 25px;
+  }
+#memorySpan{
+    text-align: left;
+    vertical-align: middle;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 25px;
+}
+#operationSpan{
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 25px;
+}
+#buttonsDiv {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background-color: rgb(45, 62, 80);
+    color: black;
+    gap: 25px;
+    padding: 0px 25px 25px 25px;
+    text-align: center;
+    border-radius: 10px;
+  }
+#buttonsDiv > div {
+    text-align: center;
+    font-size: 2vw;
+    font-weight: 900;
+    border-radius: 10px;
+    padding: 10px;
+  }
+#buttonsDiv > div:hover {
+    -ms-transform: scale(1.05); /* IE 9 */
+    -webkit-transform: scale(1.05); /* Safari 3-8 */
+    transform: scale(1.05); 
+  }
+.item1 {
+    background-color: rgba(53, 150, 231, 0.8);
+    background-image: linear-gradient(to right, rgba(39, 168, 226, 0.8) , rgba(80, 128, 200, 0.8));
+  }
+.item2 {
+    background-color: rgba(53, 150, 231, 0.8);
+    background-image: linear-gradient(to right, rgba(39, 168, 226, 0.8) , rgba(80, 128, 200, 0.8));  
+  }
+.item3 {
+    background-color: rgba(173, 251, 235, 0.8);  
+    grid-column-start: 3;
+    grid-column-end: 5;
+  }
+.item4 {
+    background-color: rgba(53, 150, 231, 0.8);
+    background-image: linear-gradient(to right, rgba(39, 168, 226, 0.8) , rgba(80, 128, 200, 0.8));
+  }
+.item5 {
+    background-color: rgba(53, 150, 231, 0.8);
+    background-image: linear-gradient(to right, rgba(39, 168, 226, 0.8) , rgba(80, 128, 200, 0.8));  
+  }
+.item6 {
+    background-color: rgba(53, 150, 231, 0.8);
+    background-image: linear-gradient(to right, rgba(39, 168, 226, 0.8) , rgba(80, 128, 200, 0.8));
+  }
+.item7 {
+    background-color: rgba(168, 59, 54, 0.8);  
+  }
+.item8 {
+    background-color: rgba(223, 188, 100, 0.8);
+    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8));
+  }
+.item9 {
+    background-color: rgba(223, 188, 100, 0.8);
+    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8));
+    
+  }
+.item10 {
+    background-color: rgba(223, 188, 100, 0.8);
+    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8)); 
+  }
+  .item11 {
+    background-color: rgba(255, 126, 92, 0.8);
+    background-image: linear-gradient(to right, rgba(255, 98, 113, 0.8) , rgba(229, 160, 101, 0.8));
+  }
+.item12 {
+    background-color: rgba(223, 188, 100, 0.8); 
+    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8));  
+  }
+.item13 {
+    background-color: rgba(223, 188, 100, 0.8);
+    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8)); 
+    
+  }
+.item14 {
+    background-color: rgba(223, 188, 100, 0.8);
+    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8));   
+  }
+.item15 {
+    background-color: rgba(255, 126, 92, 0.8);
+    background-image: linear-gradient(to right, rgba(255, 98, 113, 0.8) , rgba(229, 160, 101, 0.8));
+  }
+.item16 {
+    background-color: rgba(223, 188, 100, 0.8);
+    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8));
+  }
+.item17 {
+    background-color: rgba(223, 188, 100, 0.8); 
+    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8));
+  }
+.item18 {
+    background-color: rgba(223, 188, 100, 0.8);
+    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8)); 
+  }
+  .item19 {
+    background-color: rgba(255, 126, 92, 0.8);
+    background-image: linear-gradient(to right, rgba(255, 98, 113, 0.8) , rgba(229, 160, 101, 0.8));
+  }
+  .item20 {
+    background-color: rgba(32, 175, 119, 0.8);
+    
+  }
+.item21 {
+    background-color: rgba(223, 188, 100, 0.8);
+    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8)); 
+  }
+.item22 {
+    background-color: rgba(32, 175, 119, 0.8); 
+  }
+.item23 {
+    background-color: rgba(255, 126, 92, 0.8);
+    background-image: linear-gradient(to right, rgba(255, 98, 113, 0.8) , rgba(229, 160, 101, 0.8));
+  }
+
+
+
+
+
+
+
+
+  
