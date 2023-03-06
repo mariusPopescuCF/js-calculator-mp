@@ -1,52 +1,46 @@
 <!DOCTYPE html>
 <html>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
   <title>A calculator</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
 <div id="historyDiv">
-  <p>My first paragraph.</p>
-  <p>My first paragraph.</p>
-  <p>My first paragraph.</p>
-  <p>My first paragraph.</p>
-  <p>My first paragraph.</p>
-  <p>My first paragraph.</p>
-  <p>My first paragraph.</p>
-  <p>My first paragraph.</p>
+  <p id="p1" class="historyParagraphs">My first paragraph.</p>
+  <p id="p2" class="historyParagraphs">My first paragraph.</p>
+  <p id="p3" class="historyParagraphs">My first paragraph.</p>
+  <p id="p4" class="historyParagraphs">My first paragraph.</p>  
+  <p id="p5" class="historyParagraphs">My first paragraph.</p>
 </div>
-
 <div id="operationDiv">
   <span id="memorySpan">M</span>
   <span id="operationSpan">123456789 Hello World</span>
 </div>
-
 <div id="buttonsDiv">
-  <div class="item1">MC</div>
-  <div class="item2">MS</div>
-  <div class="item3">&larr;</div>  
-  <div class="item4">M+</div>
-  <div class="item5">M-</div>
-  <div class="item6">MR</div>
-  <div class="item7">AC</div>
-  <div class="item8">7</div> 
-  <div class="item9">8</div>
-  <div class="item10">9</div>
-  <div class="item11">/</div>  
-  <div class="item12">4</div>
-  <div class="item13">5</div>
-  <div class="item14">6</div>
-  <div class="item15">*</div>
-  <div class="item16">1</div>
-  <div class="item17">2</div>
-  <div class="item18">3</div>
-  <div class="item19">-</div>  
-  <div class="item20">.</div>
-  <div class="item21">0</div>
-  <div class="item22">=</div>
-  <div class="item23">+</div> 
+  <div id="memory-clear"  class="memory-item"><span>MC</span></div>
+  <div id="memory-store"  class="memory-item"><span>MS</span></div>
+  <div id="memory-add"    class="memory-item"><span>M+</span></div>
+  <div id="memory-subtract" class="memory-item"><span>M-</span></div>
+  <div id="memory-recall" class="memory-item"><span>MR</span></div>
+  <div id="all-clear"     class="clear-item"><span>AC</span></div>
+  <div id="backspace"     class="backspace"><span>&larr;</span></div>
+  <div id="add"           class="operator"><span>+</span></div>
+  <div id="subtract"      class="operator"><span>-</span></div>
+  <div id="multiply"      class="operator"><span>*</span></div>
+  <div id="divide"        class="operator"><span>/</span></div>
+  <div id="equal"         class="equal"><span>=</span></div> 
+  <div id="dot"   class="number"><span>.</span></div>
+  <div id="zero"  class="number"><span>0</span></div>
+  <div id="one"   class="number"><span>1</span></div>
+  <div id="two"   class="number"><span>2</span></div>
+  <div id="three" class="number"><span>3</span></div>
+  <div id="four"  class="number"><span>4</span></div>
+  <div id="five"  class="number"><span>5</span></div>
+  <div id="six"   class="number"><span>6</span></div>
+  <div id="seven" class="number"><span>7</span></div>
+  <div id="eight" class="number"><span>8</span></div>
+  <div id="nine"  class="number"><span>9</span></div> 
 </div>
-
 </body>
 </html>

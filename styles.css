@@ -2,9 +2,10 @@ body {
   background-color: rgb(45, 62, 80);
   padding: 0px;
   margin: 0px;
-  
+  max-width: 480px;
+  max-height: 640px;  
 }
-#historyDiv {
+  #historyDiv {
     background-color: black;
     color: rgb(255, 255, 255);
     padding: 0px 25px 25px 25px;
@@ -14,7 +15,7 @@ body {
     font-size: 25px;
     overflow: hidden;
   }
-#operationDiv {
+  #operationDiv {
     background-color: rgb(7, 27, 1);
     color: rgb(255, 255, 255);
     text-shadow: 1px 1px 2px black, 0 0 25px Aquamarine, 0 0 5px Aqua;
@@ -25,7 +26,7 @@ body {
     position: relative;
     font-size: 25px;
   }
-#memorySpan{
+  #memorySpan{
     text-align: left;
     vertical-align: middle;
     position: absolute;
@@ -33,14 +34,14 @@ body {
     left: 0;
     padding: 25px;
 }
-#operationSpan{
+  #operationSpan{
     text-align: right;
     position: absolute;
     bottom: 0;
     right: 0;
     padding: 25px;
 }
-#buttonsDiv {
+  #buttonsDiv {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     background-color: rgb(45, 62, 80);
@@ -50,117 +51,173 @@ body {
     text-align: center;
     border-radius: 10px;
   }
-#buttonsDiv > div {
+  #buttonsDiv > div {
     text-align: center;
     font-size: 2vw;
     font-weight: 900;
     border-radius: 10px;
     padding: 10px;
   }
-#buttonsDiv > div:hover {
-    -ms-transform: scale(1.05); /* IE 9 */
+  #buttonsDiv > div:hover {
+    -ms-transform: scale(1.10); /* IE 9 */
     -webkit-transform: scale(1.05); /* Safari 3-8 */
     transform: scale(1.05); 
   }
-.item1 {
+  #buttonsDiv > div:active {
+    background-color: #666666;
+    transform: translate(0px, 10px);
+  }
+  #buttonsDiv > .operator:active {
+    background-color: #666666;
+    transform: scale(1.2) rotate(15deg);
+  } 
+  .memory-item {
     background-color: rgba(53, 150, 231, 0.8);
     background-image: linear-gradient(to right, rgba(39, 168, 226, 0.8) , rgba(80, 128, 200, 0.8));
   }
-.item2 {
-    background-color: rgba(53, 150, 231, 0.8);
-    background-image: linear-gradient(to right, rgba(39, 168, 226, 0.8) , rgba(80, 128, 200, 0.8));  
+  .clear-item {
+    background-color: rgba(168, 59, 54, 0.8);  
   }
-.item3 {
+  .backspace {
     background-color: rgba(173, 251, 235, 0.8);  
     grid-column-start: 3;
     grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 2;
   }
-.item4 {
-    background-color: rgba(53, 150, 231, 0.8);
-    background-image: linear-gradient(to right, rgba(39, 168, 226, 0.8) , rgba(80, 128, 200, 0.8));
-  }
-.item5 {
-    background-color: rgba(53, 150, 231, 0.8);
-    background-image: linear-gradient(to right, rgba(39, 168, 226, 0.8) , rgba(80, 128, 200, 0.8));  
-  }
-.item6 {
-    background-color: rgba(53, 150, 231, 0.8);
-    background-image: linear-gradient(to right, rgba(39, 168, 226, 0.8) , rgba(80, 128, 200, 0.8));
-  }
-.item7 {
-    background-color: rgba(168, 59, 54, 0.8);  
-  }
-.item8 {
-    background-color: rgba(223, 188, 100, 0.8);
-    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8));
-  }
-.item9 {
-    background-color: rgba(223, 188, 100, 0.8);
-    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8));
-    
-  }
-.item10 {
-    background-color: rgba(223, 188, 100, 0.8);
-    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8)); 
-  }
-  .item11 {
+  .operator {
     background-color: rgba(255, 126, 92, 0.8);
     background-image: linear-gradient(to right, rgba(255, 98, 113, 0.8) , rgba(229, 160, 101, 0.8));
   }
-.item12 {
-    background-color: rgba(223, 188, 100, 0.8); 
-    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8));  
-  }
-.item13 {
-    background-color: rgba(223, 188, 100, 0.8);
-    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8)); 
-    
-  }
-.item14 {
-    background-color: rgba(223, 188, 100, 0.8);
-    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8));   
-  }
-.item15 {
-    background-color: rgba(255, 126, 92, 0.8);
-    background-image: linear-gradient(to right, rgba(255, 98, 113, 0.8) , rgba(229, 160, 101, 0.8));
-  }
-.item16 {
-    background-color: rgba(223, 188, 100, 0.8);
-    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8));
-  }
-.item17 {
-    background-color: rgba(223, 188, 100, 0.8); 
-    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8));
-  }
-.item18 {
-    background-color: rgba(223, 188, 100, 0.8);
-    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8)); 
-  }
-  .item19 {
-    background-color: rgba(255, 126, 92, 0.8);
-    background-image: linear-gradient(to right, rgba(255, 98, 113, 0.8) , rgba(229, 160, 101, 0.8));
-  }
-  .item20 {
+  .equal {
     background-color: rgba(32, 175, 119, 0.8);
-    
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 6;
+    grid-row-end: 7;
   }
-.item21 {
+  .number{
     background-color: rgba(223, 188, 100, 0.8);
-    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8)); 
+    background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8));
   }
-.item22 {
-    background-color: rgba(32, 175, 119, 0.8); 
-  }
-.item23 {
-    background-color: rgba(255, 126, 92, 0.8);
-    background-image: linear-gradient(to right, rgba(255, 98, 113, 0.8) , rgba(229, 160, 101, 0.8));
-  }
-
-
-
-
-
-
-
-
-  
+/*Buttons positioning*/
+#memory-clear{
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+#memory-store{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+#memory-add{
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+#memory-subtract{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+#memory-recall{
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+#all-clear{
+  grid-column-start: 4;
+  grid-column-end: 5;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+#add{
+  grid-column-start: 4;
+  grid-column-end: 5;
+  grid-row-start: 6;
+  grid-row-end: 7;
+}
+#subtract{
+  grid-column-start: 4;
+  grid-column-end: 5;
+  grid-row-start: 5;
+  grid-row-end: 6;
+}
+#multiply{
+  grid-column-start: 4;
+  grid-column-end: 5;
+  grid-row-start: 4;
+  grid-row-end: 5;
+}
+#divide{
+  grid-column-start: 4;
+  grid-column-end: 5;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}  
+#zero{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 6;
+  grid-row-end: 7;
+} 
+#one{
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 5;
+  grid-row-end: 6;
+} 
+#two{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 5;
+  grid-row-end: 6;
+} 
+#three{
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 5;
+  grid-row-end: 6;
+} 
+#four{
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 4;
+  grid-row-end: 5;
+} 
+#five{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 4;
+  grid-row-end: 5;
+} 
+#six{
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 4;
+  grid-row-end: 5;
+} 
+#seven{
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 3;
+  grid-row-end: 4;
+} 
+#eight{
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 3;
+  grid-row-end: 4;
+} 
+#nine{
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 4;
+} 
