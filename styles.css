@@ -1,16 +1,18 @@
-body {
+.wrapper {
   background-color: rgb(45, 62, 80);
-  padding: 0px;
+  padding: 10px;
   margin: 0px;
   max-width: 480px;
-  max-height: 640px;  
+  max-height: 640px;
+  border-radius: 10px;  
 }
   #historyDiv {
+    position: relative;
     background-color: black;
     color: rgb(255, 255, 255);
-    padding: 0px 25px 25px 25px;
-    margin: 25px 25px 25px 25px;
-    height: 250px;
+    margin: 10px 10px 10px 10px;
+    padding: 10px;
+    height: 150px;
     text-align: right;
     font-size: 25px;
     overflow: hidden;
@@ -20,11 +22,11 @@ body {
     color: rgb(255, 255, 255);
     text-shadow: 1px 1px 2px black, 0 0 25px Aquamarine, 0 0 5px Aqua;
     vertical-align: middle;
-    padding: 25px;
-    margin: 25px 25px 25px 25px;
-    height: 25px;
+    padding: 10px;
+    margin: 10px 10px 10px 10px;
     position: relative;
     font-size: 25px;
+    height: 25px;
   }
   #memorySpan{
     text-align: left;
@@ -32,22 +34,31 @@ body {
     position: absolute;
     bottom: 0;
     left: 0;
-    padding: 25px;
+    padding: 10px;
 }
   #operationSpan{
     text-align: right;
     position: absolute;
     bottom: 0;
     right: 0;
-    padding: 25px;
+    padding: 10px;
 }
+
   #buttonsDiv {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    background-color: rgb(45, 62, 80);
+    grid-template-rows: auto;
+    grid-template-areas:
+    "memory-clear memory-store backspace backspace"
+    "memory-add memory-subtract memory-recall all-clear"
+    "seven eight nine divide"
+    "four five six multiply"
+    "one two three subtract"
+    "dot zero equal add";
     color: black;
-    gap: 25px;
-    padding: 0px 25px 25px 25px;
+    gap: 15px;
+    margin: 10px;
+    padding: 0px 0px 0px 0px;
     text-align: center;
     border-radius: 10px;
   }
@@ -56,21 +67,23 @@ body {
     font-size: 2vw;
     font-weight: 900;
     border-radius: 10px;
-    padding: 10px;
+    padding: 00px;
   }
   #buttonsDiv > div:hover {
-    -ms-transform: scale(1.10); /* IE 9 */
-    -webkit-transform: scale(1.05); /* Safari 3-8 */
+    -ms-transform: scale(1.10); 
+    -webkit-transform: scale(1.05); 
     transform: scale(1.05); 
   }
   #buttonsDiv > div:active {
     background-color: #666666;
     transform: translate(0px, 10px);
   }
+  /*
   #buttonsDiv > .operator:active {
     background-color: #666666;
     transform: scale(1.2) rotate(15deg);
   } 
+  */
   .memory-item {
     background-color: rgba(53, 150, 231, 0.8);
     background-image: linear-gradient(to right, rgba(39, 168, 226, 0.8) , rgba(80, 128, 200, 0.8));
@@ -80,10 +93,7 @@ body {
   }
   .backspace {
     background-color: rgba(173, 251, 235, 0.8);  
-    grid-column-start: 3;
-    grid-column-end: 5;
-    grid-row-start: 1;
-    grid-row-end: 2;
+    grid-area: backspace;
   }
   .operator {
     background-color: rgba(255, 126, 92, 0.8);
@@ -91,133 +101,74 @@ body {
   }
   .equal {
     background-color: rgba(32, 175, 119, 0.8);
-    grid-column-start: 3;
-    grid-column-end: 4;
-    grid-row-start: 6;
-    grid-row-end: 7;
+    grid-area: equal;
   }
   .number{
     background-color: rgba(223, 188, 100, 0.8);
     background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8));
   }
+
 /*Buttons positioning*/
 #memory-clear{
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 1;
-  grid-row-end: 2;
+  grid-area: memory-clear; 
 }
 #memory-store{
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 2;
+  grid-area: memory-store; 
 }
 #memory-add{
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 2;
-  grid-row-end: 3;
+  grid-area: memory-add;
 }
 #memory-subtract{
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
+  grid-area: memory-subtract;
 }
 #memory-recall{
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 2;
-  grid-row-end: 3;
+  grid-area: memory-recall;
 }
 #all-clear{
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 2;
-  grid-row-end: 3;
+  grid-area: all-clear;
 }
 #add{
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 6;
-  grid-row-end: 7;
+  grid-area: add;
 }
 #subtract{
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 5;
-  grid-row-end: 6;
+  grid-area: subtract;
 }
 #multiply{
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 4;
-  grid-row-end: 5;
+  grid-area: multiply;
 }
 #divide{
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 3;
-  grid-row-end: 4;
-}  
+  grid-area: divide;
+}
+#dot{
+  grid-area: dot;
+}   
 #zero{
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 6;
-  grid-row-end: 7;
+  grid-area: zero;
 } 
 #one{
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 5;
-  grid-row-end: 6;
+  grid-area: one;
 } 
 #two{
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 5;
-  grid-row-end: 6;
+  grid-area: two;
 } 
 #three{
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 5;
-  grid-row-end: 6;
+  grid-area: three;
 } 
 #four{
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 4;
-  grid-row-end: 5;
+  grid-area: four;
 } 
 #five{
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 4;
-  grid-row-end: 5;
+  grid-area: five;
 } 
 #six{
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 4;
-  grid-row-end: 5;
+  grid-area: six;
 } 
 #seven{
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 3;
-  grid-row-end: 4;
+  grid-area: seven;
 } 
 #eight{
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 3;
-  grid-row-end: 4;
+  grid-area: eight;
 } 
 #nine{
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 3;
-  grid-row-end: 4;
+  grid-area: nine;
 } 
