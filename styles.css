@@ -1,4 +1,22 @@
-.wrapper {
+.calculator-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+  "history history history history"
+  "operations operations operations operations"
+  "memory-clear memory-store backspace backspace"
+  "memory-add memory-subtract memory-recall all-clear"
+  "seven eight nine divide"
+  "four five six multiply"
+  "one two three subtract"
+  "dot zero equal add";
+  color: black;
+  gap: 10px;
+  margin: 10px;
+  padding: 0px 0px 0px 0px;
+  text-align: center;
+  border-radius: 10px;
   background-color: rgb(45, 62, 80);
   padding: 10px;
   margin: 0px;
@@ -6,107 +24,69 @@
   max-height: 640px;
   border-radius: 10px;  
 }
-  #historyDiv {
-    position: relative;
+#historyDiv {
+    grid-area: history;
+    padding: 10px;
     background-color: black;
     color: rgb(255, 255, 255);
-    margin: 10px 10px 10px 10px;
-    padding: 10px;
-    height: 150px;
     text-align: right;
     font-size: 25px;
-    overflow: hidden;
-  }
-  #operationDiv {
+}
+#operationDiv {
+    grid-area: operations;
     background-color: rgb(7, 27, 1);
     color: rgb(255, 255, 255);
     text-shadow: 1px 1px 2px black, 0 0 25px Aquamarine, 0 0 5px Aqua;
-    vertical-align: middle;
-    padding: 10px;
-    margin: 10px 10px 10px 10px;
-    position: relative;
     font-size: 25px;
-    height: 25px;
-  }
+}
   #memorySpan{
+    padding: 10px;
     text-align: left;
     vertical-align: middle;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding: 10px;
+    float: left; 
 }
   #operationSpan{
-    text-align: right;
-    position: absolute;
-    bottom: 0;
-    right: 0;
     padding: 10px;
+    float:right;
+    text-align: right;
 }
-
-  #buttonsDiv {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto;
-    grid-template-areas:
-    "memory-clear memory-store backspace backspace"
-    "memory-add memory-subtract memory-recall all-clear"
-    "seven eight nine divide"
-    "four five six multiply"
-    "one two three subtract"
-    "dot zero equal add";
-    color: black;
-    gap: 15px;
-    margin: 10px;
-    padding: 0px 0px 0px 0px;
+.buttons {
     text-align: center;
-    border-radius: 10px;
-  }
-  #buttonsDiv > div {
-    text-align: center;
-    font-size: 2vw;
+    font-size: 25px;
     font-weight: 900;
     border-radius: 10px;
-    padding: 00px;
-  }
-  #buttonsDiv > div:hover {
+}
+.buttons:hover {
     -ms-transform: scale(1.10); 
     -webkit-transform: scale(1.05); 
     transform: scale(1.05); 
-  }
-  #buttonsDiv > div:active {
-    background-color: #666666;
-    transform: translate(0px, 10px);
-  }
-  /*
-  #buttonsDiv > .operator:active {
-    background-color: #666666;
-    transform: scale(1.2) rotate(15deg);
-  } 
-  */
-  .memory-item {
+}
+.buttons:active {
+    transform: translate(0px, 5px);
+}
+.memory-item {
     background-color: rgba(53, 150, 231, 0.8);
     background-image: linear-gradient(to right, rgba(39, 168, 226, 0.8) , rgba(80, 128, 200, 0.8));
-  }
-  .clear-item {
+}
+.clear-item {
     background-color: rgba(168, 59, 54, 0.8);  
-  }
-  .backspace {
+}
+.backspace {
     background-color: rgba(173, 251, 235, 0.8);  
     grid-area: backspace;
-  }
-  .operator {
+}
+.operator {
     background-color: rgba(255, 126, 92, 0.8);
     background-image: linear-gradient(to right, rgba(255, 98, 113, 0.8) , rgba(229, 160, 101, 0.8));
-  }
-  .equal {
+}
+.equal {
     background-color: rgba(32, 175, 119, 0.8);
     grid-area: equal;
-  }
-  .number{
+}
+.number{
     background-color: rgba(223, 188, 100, 0.8);
     background-image: linear-gradient(to right, rgba(214, 162, 61, 0.8) , rgba(221, 213, 177, 0.8));
-  }
+}
 
 /*Buttons positioning*/
 #memory-clear{
