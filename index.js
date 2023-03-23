@@ -1,6 +1,5 @@
 class Calculator {
-    constructor(previousOperand, currentOperandTextElement, historyTextElement, updateHistoryArr) {
-        this.previousOperand = previousOperand;
+    constructor(currentOperandTextElement, historyTextElement, updateHistoryArr) {
         this.currentOperandTextElement = currentOperandTextElement;
         this.historyTextElement = historyTextElement;
         this.memoryDisplayTextElement = memoryDisplayTextElement;
@@ -10,10 +9,16 @@ class Calculator {
     }
 
 clear() {
-    this.previousOperand = '';
     this.currentOperand = '';
     this.operation = undefined;
+    this.historyClear();
+}
 
+historyClear() {
+    this.historyTextElement.innerHTML = '';
+    for (let i = 0; i < updateHistoryArr.length; i++) {
+        updateHistoryArr[i] = ' ';
+      }
 }
 
 memoryClear() {
@@ -23,80 +28,67 @@ memoryClear() {
 }
 
 memoryStore() {
+    const current = parseFloat(this.currentOperand);
+    if (isNaN(current)) return;
     if (this.currentOperand === '') return
     this.memoryDisplay = 'M';
     this.memoryValue = this.currentOperand;
     this.memoryDisplayTextElement.style.visibility = 'visible';
-
+    console.log(this.memoryValue)
+    console.log(typeof(this.memoryValue))
 }
 
 memoryRecall() {  
-    this.currentOperand = this.memoryValue;
+    this.appendNumber(this.memoryValue);
 }
 
 memoryAdd() {
-    if (this.currentOperand === '') return
-    parseFloat(this.memoryValue) += parseFloat(this.currentOperand);
+    const current = parseFloat(this.currentOperand);
+    if (isNaN(current)) return;
+    if (this.currentOperand === '') return;
+    this.memoryValue += eval(this.currentOperand);   
 }
 
 memorySubtract() {
-    if (this.currentOperand === '') return
-    parseFloat(this.memoryValue) -= parseFloat(this.currentOperand);
+    const current = parseFloat(this.currentOperand);
+    if (isNaN(current)) return;
+    if (this.currentOperand === '') return;
+    this.memoryValue -= eval(this.currentOperand);
 }
 
 backspace() {
     this.currentOperand = this.currentOperand.toString().slice(0, -1);
 }
 
-appendNumber(number) {
-    if (number === '.' && this.currentOperand.includes('.')) return;
-    if (this.currentOperand !== '') {
+appendNumber(input) {
+    if (input === '.' && this.currentOperand.includes('.')) return;
+    if (this.computation != ''){
         this.currentOperand = '';
+        this.computation = '';  
     }
-    this.currentOperand = this.currentOperand.toString() + number.toString();
+    this.currentOperand = this.currentOperand.toString() + input.toString();
 }
 
 chooseOperation (operation) {
     if (this.currentOperand === '') return;
-    if (this.previousOperand !== '') {
-        this.compute();
-        this.updateHistory();
-    }
     this.operation = operation;
-    this.previousOperand = this.currentOperand;
-    this.currentOperand = '';
 }
 
 compute() {
-    let computation;
-    const prev = parseFloat(this.previousOperand);
     const current = parseFloat(this.currentOperand);
-    if (isNaN(prev) || isNaN(current)) return;
-    switch (this.operation) {
-        case '+': computation = prev + current
-        break;
-        case '-': computation = prev - current
-        break;
-        case '*': computation = prev * current
-        break;
-        case '/': computation = prev / current
-        break;
-        default: return;
-    }
-    this.history = prev.toString() + " " + this.operation.toString() + " " + current.toString() + " " + "=" + " " + computation.toString();
-        //alert(this.history)
-        //this.previousOperand = computation
-    this.currentOperand = computation;
+    if (isNaN(current)) return;
+    if (!this.operation) return;
+    this.computation = eval(this.currentOperand)
+    this.history = this.currentOperand.toString() + " " + "=" + " " + this.computation.toString();
     this.operation = undefined;
-    this.previousOperand = '';
-        
+    this.currentOperand = this.computation;     
 }
 
 updateDipslay() {
-    if(this.operation != null && this.currentOperand === '') {
-        this.currentOperandTextElement.innerText = this.operation;
-    }  else {
-        this.currentOperandTextElement.innerText = this.currentOperand;
+    if(this.currentOperand == ''){
+        this.currentOperandTextElement.innerText = '0';
+    } else  {
+    this.currentOperandTextElement.innerText = this.currentOperand;
     }
 }
 
@@ -105,31 +97,9 @@ updateMemoryDipslay() {
 }
 
 updateHistory() {
-    console.log(this.history)
-    if (this.updateHistoryArr[0] == 0) {
-        this.updateHistoryArr[0] = this.history;
-      } console.log(this.updateHistoryArr[0]);
-       /*else if (this.updateHistoryArr[1] === '') {
-        this.updateHistoryArr[1] = this.history;
-      } else if (this.updateHistoryArr[2] === '') {
-        this.updateHistoryArr[2] = this.history;
-      } else if (this.updateHistoryArr[3] === '') {
-        this.updateHistoryArr[3] = this.history;
-      } else if (this.updateHistoryArr[4] === '') {
-        this.updateHistoryArr[4] = this.history;
-      } else { 
-        //this.updateHistoryArr.shift();
-        //this.updateHistoryArr.push(this.history);
-        for (let i = 0; i < this.updateHistoryArr.length; i++) {
-            text1 += this.updateHistoryArr[i] + "<br>";
-            console.log(text1);
-          }
-    }
-    console.log(this.updateHistoryArr[0]);
-    for (let i = 0; i < this.updateHistoryArr.length; i++) {
-        this.historyTextElement[i].innerText = this.updateHistoryArr[i];
-      }*/
-    
+    updateHistoryArr.shift();
+    updateHistoryArr.push(this.history);
+    this.historyTextElement.innerHTML = updateHistoryArr.join("<br>"); 
 }
 }
 
@@ -138,43 +108,34 @@ const operationButtons = document.querySelectorAll('.operator');
 const equalsButton = document.getElementById('equal');
 const backspaceButton = document.getElementById('backspace');
 const allClearButton = document.getElementById('all-clear');
-const previousOperand = '';
 const memoryValue = '';
 const currentOperandTextElement = document.getElementById('operationSpan');
-const historyTextElement = [
-    document.getElementById('hd1'),
-    document.getElementById('hd2'),
-    document.getElementById('hd3'),
-    document.getElementById('hd4'),
-    document.getElementById('hd5')
-];
-const updateHistoryArr = ['0', '0', '0', '0', '0'];
+const historyTextElement = document.getElementById('hd');
+const updateHistoryArr = [' ', ' ', ' ', ' ', ' '];
 const memoryDisplayTextElement = document.getElementById('memorySpan');
 const memoryStoreButton = document.getElementById('memory-store');
 const memoryClearButton = document.getElementById('memory-clear');
 const memoryRecallButton = document.getElementById('memory-recall');
 const memoryAddButton = document.getElementById('memory-add');
 const memorySubtractButton = document.getElementById('memory-subtract');
+const computation = '';
 
-
-
-
-const calculator = new Calculator(previousOperand, currentOperandTextElement, historyTextElement, memoryDisplayTextElement, updateHistoryArr);
+const calculator = new Calculator(currentOperandTextElement, historyTextElement, memoryDisplayTextElement, updateHistoryArr);
 
 numberButtons.forEach(div => {
     div.addEventListener('click', () => {
+        calculator.updateDipslay();
         calculator.appendNumber(div.innerText);
         calculator.updateDipslay();
     })
-
 })
 
 operationButtons.forEach(div => {
     div.addEventListener('click', () => {
         calculator.chooseOperation(div.innerText);
+        calculator.appendNumber(div.innerText);
         calculator.updateDipslay();
     })
-
 })
 
 allClearButton.addEventListener('click', div => {
