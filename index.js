@@ -97,8 +97,13 @@ updateMemoryDipslay() {
 }
 
 updateHistory() {
-    updateHistoryArr.shift();
-    updateHistoryArr.push(this.history);
+    
+    // top to bottom
+    updateHistoryArr.unshift(this.history);
+    updateHistoryArr.pop();
+    // bottom to top
+    //updateHistoryArr.shift();
+    //updateHistoryArr.push(this.history);
     this.historyTextElement.innerHTML = updateHistoryArr.join("<br>"); 
 }
 }
