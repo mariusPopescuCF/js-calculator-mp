@@ -68,8 +68,13 @@ appendNumber(input) {
 
 chooseOperation (operation) {
     if (this.currentOperand === '') return;
+    if (operation != '' && this.currentOperand.endsWith(this.operation)) {
+        this.backspace();
+    }
     this.operation = operation;
+    operation = '';
     this.isDecimalAllowed = '1';
+    this.appendNumber(this.operation)
 }
 
 compute() {
@@ -139,7 +144,6 @@ numberButtons.forEach(div => {
 operationButtons.forEach(div => {
     div.addEventListener('click', () => {
         calculator.chooseOperation(div.innerText);
-        calculator.appendNumber(div.innerText);
         calculator.updateDipslay();
     })
 })
