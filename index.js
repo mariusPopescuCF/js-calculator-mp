@@ -12,6 +12,7 @@ clear() {
     this.currentOperand = '';
     this.operation = undefined;
     this.historyClear();
+    this.isDecimalAllowed = '1';
 }
 
 historyClear() {
@@ -61,27 +62,34 @@ backspace() {
 }
 
 appendNumber(input) {
-    if (input === '.' && this.currentOperand.includes('.')) return;
+    if (input === '.' && this.currentOperand.endsWith('.')) return;
+    if (input === '.' && this.currentOperand=== '') return;
+    if (input === '.' && this.isDecimalAllowed === '0') return;
+    if (input === '.' && this.currentOperand.endsWith(this.operation)) return;
     if (this.computation != ''){
         this.currentOperand = '';
         this.computation = '';  
     }
     this.currentOperand = this.currentOperand.toString() + input.toString();
+    if (input === '.' ) this.isDecimalAllowed = '0';
 }
 
 chooseOperation (operation) {
     if (this.currentOperand === '') return;
     this.operation = operation;
+    this.isDecimalAllowed = '1';
 }
 
 compute() {
     const current = parseFloat(this.currentOperand);
     if (isNaN(current)) return;
     if (!this.operation) return;
-    this.computation = eval(this.currentOperand)
+    if(this.currentOperand.endsWith(this.operation) || this.currentOperand.endsWith(".")) return;
+    this.computation = (eval(this.currentOperand));
     this.history = this.currentOperand.toString() + " " + "=" + " " + this.computation.toString();
     this.operation = undefined;
-    this.currentOperand = this.computation;     
+    this.currentOperand = this.computation;
+    this.updateHistory();     
 }
 
 updateDipslay() {
@@ -124,6 +132,7 @@ const memoryRecallButton = document.getElementById('memory-recall');
 const memoryAddButton = document.getElementById('memory-add');
 const memorySubtractButton = document.getElementById('memory-subtract');
 const computation = '';
+const isDecimalAllowed = '1';
 
 const calculator = new Calculator(currentOperandTextElement, historyTextElement, memoryDisplayTextElement, updateHistoryArr);
 
@@ -152,7 +161,6 @@ allClearButton.addEventListener('click', div => {
 equalsButton.addEventListener('click', div => {
     calculator.compute();
     calculator.updateDipslay();
-    calculator.updateHistory();
 })
 
 backspaceButton.addEventListener('click', div => {
