@@ -11,15 +11,7 @@ class Calculator {
 clear() {
     this.currentOperand = '';
     this.operation = undefined;
-    this.historyClear();
     this.isDecimalAllowed = '1';
-}
-
-historyClear() {
-    this.historyTextElement.innerHTML = '';
-    for (let i = 0; i < updateHistoryArr.length; i++) {
-        updateHistoryArr[i] = ' ';
-      }
 }
 
 memoryClear() {
@@ -85,7 +77,7 @@ compute() {
     if (isNaN(current)) return;
     if (!this.operation) return;
     if(this.currentOperand.endsWith(this.operation) || this.currentOperand.endsWith(".")) return;
-    this.computation = (eval(this.currentOperand));
+    this.computation = eval(this.currentOperand);
     this.history = this.currentOperand.toString() + " " + "=" + " " + this.computation.toString();
     this.operation = undefined;
     this.currentOperand = this.computation;
