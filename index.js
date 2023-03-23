@@ -27,8 +27,6 @@ memoryStore() {
     this.memoryDisplay = 'M';
     this.memoryValue = this.currentOperand;
     this.memoryDisplayTextElement.style.visibility = 'visible';
-    console.log(this.memoryValue)
-    console.log(typeof(this.memoryValue))
 }
 
 memoryRecall() {  
@@ -69,6 +67,9 @@ appendNumber(input) {
 chooseOperation (operation) {
     if (this.currentOperand === '') return;
     if (operation != '' && this.currentOperand.endsWith(this.operation)) {
+        this.backspace();
+    }
+    if (operation != '' && this.currentOperand.endsWith('.')) {
         this.backspace();
     }
     this.operation = operation;
