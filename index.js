@@ -162,7 +162,7 @@ numberButtons.forEach(div => {
 
 operationButtons.forEach(div => {
     div.addEventListener('click', () => {
-        calculator.chooseOperation(div.innerText);
+        calculator.chooseOperation(' ' + div.innerText + ' ');
         calculator.updateDipslay();
     })
 })
