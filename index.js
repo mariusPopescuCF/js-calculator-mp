@@ -54,17 +54,15 @@ backspace() {
 
 appendNumber(input) {
     if (input === '.' && this.currentOperand.endsWith('.')) return;
-    if (input === '.' && this.currentOperand=== '') return;
+    if (input === '.' && this.currentOperand === '') input = '0.';
     if (input === '.' && this.isDecimalAllowed === '0') return;
-    if (input === '.' && this.currentOperand.endsWith(this.operation)) return;
+    if (input === '.' && this.currentOperand.endsWith(this.operation)) input = '0.';
     if (input === '0' && this.isZeroPrefixAllowed === '0' && this.currentOperand === '0') return;
-console.log(this.isZeroPrefixAllowed + '' + 'before')
-console.log(input)
-
     if (this.computation != ''){
         this.currentOperand = '';
         this.computation = '';  
-    }if (this.currentOperand.endsWith('0') && this.isZeroPrefixAllowed === '0' && input !== '.' && input !== this.operation) {
+    }
+    if (this.currentOperand.endsWith('0') && this.isZeroPrefixAllowed === '0' && input !== '.' && input !== this.operation) {
         this.backspace();
     }
     this.currentOperand = this.currentOperand.toString() + input.toString();
