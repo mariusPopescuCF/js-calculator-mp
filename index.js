@@ -12,6 +12,7 @@ clear() {
     this.currentOperand = '';
     this.operation = undefined;
     this.isDecimalAllowed = '1';
+    this.isZeroPrefixAllowed = '';
 }
 
 memoryClear() {
@@ -56,12 +57,24 @@ appendNumber(input) {
     if (input === '.' && this.currentOperand=== '') return;
     if (input === '.' && this.isDecimalAllowed === '0') return;
     if (input === '.' && this.currentOperand.endsWith(this.operation)) return;
+    if (input === '0' && this.isZeroPrefixAllowed === '0' && this.currentOperand === '0') return;
+console.log(this.isZeroPrefixAllowed + '' + 'before')
+console.log(input)
+
     if (this.computation != ''){
         this.currentOperand = '';
         this.computation = '';  
+    }if (this.currentOperand.endsWith('0') && this.isZeroPrefixAllowed === '0' && input !== '.' && input !== this.operation) {
+        this.backspace();
     }
     this.currentOperand = this.currentOperand.toString() + input.toString();
-    if (input === '.' ) this.isDecimalAllowed = '0';
+    if (input == '0' && this.currentOperand == '0') this.isZeroPrefixAllowed = '0';
+    if (input === '.' ) {
+        this.isDecimalAllowed = '0';
+        this.isZeroPrefixAllowed = '1';
+    }
+    if (input !== '0') this.isZeroPrefixAllowed = '1';
+    if (this.currentOperand.endsWith(this.operation)) this.isZeroPrefixAllowed = '0';
 }
 
 chooseOperation (operation) {
@@ -82,7 +95,8 @@ compute() {
     const current = parseFloat(this.currentOperand);
     if (isNaN(current)) return;
     if (!this.operation) return;
-    if(this.currentOperand.endsWith(this.operation) || this.currentOperand.endsWith(".")) return;
+    if (this.currentOperand.endsWith(this.operation) || this.currentOperand.endsWith(".")) return;
+    if (!this.isOperation()) return;
     this.computation = eval(this.currentOperand);
     this.history = this.currentOperand.toString() + " " + "=" + " " + this.computation.toString();
     this.operation = undefined;
@@ -112,6 +126,11 @@ updateHistory() {
     //updateHistoryArr.push(this.history);
     this.historyTextElement.innerHTML = updateHistoryArr.join("<br>"); 
 }
+
+isOperation() {
+    let isOperation = this.currentOperand.toString()
+    if (isOperation.includes('+') || isOperation.includes('-') || isOperation.includes('*') ||isOperation.includes('/')) return true;
+}
 }
 
 const numberButtons = document.querySelectorAll('.number');
@@ -131,6 +150,7 @@ const memoryAddButton = document.getElementById('memory-add');
 const memorySubtractButton = document.getElementById('memory-subtract');
 const computation = '';
 const isDecimalAllowed = '1';
+const isZeroPrefixAllowed = '';
 
 const calculator = new Calculator(currentOperandTextElement, historyTextElement, memoryDisplayTextElement, updateHistoryArr);
 
