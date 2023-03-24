@@ -49,7 +49,9 @@ memorySubtract() {
 }
 
 backspace() {
+    this.currentOperand = this.currentOperand.toString().trimEnd();
     this.currentOperand = this.currentOperand.toString().slice(0, -1);
+    this.currentOperand = this.currentOperand.toString().trimEnd();
 }
 
 appendNumber(input) {
