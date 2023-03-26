@@ -31,7 +31,7 @@
     color: rgb(255, 255, 255);
     text-align: right;
     font-size: 18px;
-    height: 140px;
+    height: 105px;
 }
 #operationDiv {
     grid-area: operations;
