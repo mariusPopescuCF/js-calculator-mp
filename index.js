@@ -1,6 +1,7 @@
 class Calculator {
-    constructor(currentOperandTextElement, historyTextElement, updateHistoryArr) {
+    constructor(currentOperandTextElement, currentOperand, historyTextElement, updateHistoryArr) {
         this.currentOperandTextElement = currentOperandTextElement;
+        this.currentOperand = currentOperand;
         this.historyTextElement = historyTextElement;
         this.memoryDisplayTextElement = memoryDisplayTextElement;
         this.updateHistoryArr = updateHistoryArr;
@@ -9,10 +10,13 @@ class Calculator {
     }
 
 clear() {
-    this.currentOperand = '';
+    this.currentOperand = '0';
     this.operation = undefined;
     this.isDecimalAllowed = '1';
-    this.isZeroPrefixAllowed = '';
+    this.isZeroPrefixAllowed = '0';
+    this.previousInput = '';
+    this.isMemoryRecalled = '0';
+    this.computation = '';
 }
 
 memoryClear() {
@@ -22,50 +26,79 @@ memoryClear() {
 }
 
 memoryStore() {
-    const current = parseFloat(this.currentOperand);
+    let current = parseFloat(this.currentOperand);
     if (isNaN(current)) return;
     if (this.currentOperand === '') return
     this.memoryDisplay = 'M';
-    this.memoryValue = this.currentOperand;
+    if (current.toString().endsWith(this.operation)) current.slice(0, -1);
+    this.memoryValue = parseFloat(current);
     this.memoryDisplayTextElement.style.visibility = 'visible';
 }
 
-memoryRecall() {  
-    this.appendNumber(this.memoryValue);
+memoryRecall() {
+    if (this.memoryValue === '') return;  
+    if (this.currentOperand === this.memoryValue) return;
+    if (this.previousInput === this.memoryValue && this.computation === '') return;
+    if (this.currentOperand !== '' && this.operation !== undefined && !(this.currentOperand.endsWith(this.operation))) this.currentOperand = '';
+    if (this.currentOperand !== '' && !(this.isOperation())) this.currentOperand = '';
+    this.appendNumber(this.memoryValue); 
+    this.isMemoryRecalled = '1'; 
 }
 
 memoryAdd() {
-    const current = parseFloat(this.currentOperand);
+    let current = parseFloat(this.currentOperand);
     if (isNaN(current)) return;
     if (this.currentOperand === '') return;
-    this.memoryValue += eval(this.currentOperand);   
+    if (current.toString().endsWith(this.operation)) current.slice(0, -1);
+    this.memoryValue = parseFloat(this.memoryValue) + parseFloat(current);    
 }
 
 memorySubtract() {
-    const current = parseFloat(this.currentOperand);
+    let current = parseFloat(this.currentOperand);
     if (isNaN(current)) return;
     if (this.currentOperand === '') return;
-    this.memoryValue -= eval(this.currentOperand);
+    if (current.toString().endsWith(this.operation)) current.slice(0, -1);
+    this.memoryValue = parseFloat(this.memoryValue) - parseFloat(current);    
 }
 
-backspace() {
+backspace(input) {
+    if (input === 'default' && this.currentOperand === '0') return;
+    if (input === 'default' && this.length() === 1) {
+        this.currentOperand = '0';
+        this.isZeroPrefixAllowed = '0';
+        return;
+    }   
+    if (this.currentOperand.endsWith('.')) {
+        this.isDecimalAllowed = '1';
+        this.isZeroPrefixAllowed = '0';
+    } 
     this.currentOperand = this.currentOperand.toString().trimEnd();
     this.currentOperand = this.currentOperand.toString().slice(0, -1);
-    this.currentOperand = this.currentOperand.toString().trimEnd();
+    if (!(this.currentOperand.endsWith(this.operation)))  this.currentOperand = this.currentOperand.toString().trimEnd();
+    if (this.currentOperand.endsWith(this.operation)) this.isZeroPrefixAllowed = '0';
 }
 
 appendNumber(input) {
-    if (this.computation != ''){
-        this.currentOperand = '';
-        this.computation = '';  
-    }
+    let currentOperandLenght = this.currentOperand.toString().length;
+    if (this.computation !== '') this.clear();
+    if (this.length() > 23) return;
     if (input === '.' && this.currentOperand.endsWith('.')) return;
-    if (input === '.' && this.currentOperand === '') input = '0.';
     if (input === '.' && this.isDecimalAllowed === '0') return;
-    if (input === '.' && this.currentOperand.endsWith(this.operation)) input = '0.';
     if (input === '0' && this.isZeroPrefixAllowed === '0' && this.currentOperand === '0') return;
-    if (this.currentOperand.endsWith('0') && this.isZeroPrefixAllowed === '0' && input !== '.' && input !== this.operation) {
-        this.backspace();
+    if (this.currentOperand.endsWith('0') && this.isZeroPrefixAllowed === '0' && input !== '.' && input !== this.operation) this.backspace('append');
+    if (this.isMemoryRecalled === '1' && input !== this.operation) {
+        this.currentOperand = '';
+        this.isMemoryRecalled = '0'
+        this.isDecimalAllowed = '1';
+        this.isZeroPrefixAllowed = '0';
+    }
+    if (input === '.' && this.currentOperand === '') {
+        input = '0.';
+        this.isDecimalAllowed = '0';
+    }
+    if (input === '.' && this.currentOperand.endsWith(this.operation)) {
+        input = '0.';
+        this.isDecimalAllowed = '0';
     }
     this.currentOperand = this.currentOperand.toString() + input.toString();
     if (input == '0' && this.currentOperand == '0') this.isZeroPrefixAllowed = '0';
@@ -75,11 +108,13 @@ appendNumber(input) {
     }
     if (input !== '0') this.isZeroPrefixAllowed = '1';
     if (this.currentOperand.endsWith(this.operation)) this.isZeroPrefixAllowed = '0';
+    this.previousInput = input;
 }
 
 chooseOperation (operation) {
+    if (this.computation) return;
     if (this.currentOperand === '') return;
-    if (operation != '' && this.currentOperand.endsWith(this.operation)) {
+    if (operation !== '' && this.currentOperand.endsWith(this.operation)) {
         this.backspace();
     }
     if (operation != '' && this.currentOperand.endsWith('.')) {
@@ -92,24 +127,21 @@ chooseOperation (operation) {
 }
 
 compute() {
-    const current = parseFloat(this.currentOperand);
+    let current = parseFloat(this.currentOperand);
+    //if (this.currentOperand.endsWith(this.operation) || this.currentOperand.endsWith(".")) this.backspace(); // in caz ca ultimul char este . sau operator, sterge ultimul char.
+    if (this.currentOperand.endsWith(this.operation) || this.currentOperand.endsWith(".")) return; // // in caz ca ultimul char este . sau operator, ignora.
     if (isNaN(current)) return;
     if (!this.operation) return;
-    if (this.currentOperand.endsWith(this.operation) || this.currentOperand.endsWith(".")) return;
     if (!this.isOperation()) return;
     this.computation = eval(this.currentOperand);
     this.history = this.currentOperand.toString() + " " + "=" + " " + this.computation.toString();
-    this.operation = undefined;
+    this.operation = '';
     this.currentOperand = this.computation;
     this.updateHistory();     
 }
 
 updateDipslay() {
-    if(this.currentOperand == ''){
-        this.currentOperandTextElement.innerText = '0';
-    } else  {
     this.currentOperandTextElement.innerText = this.currentOperand;
-    }
 }
 
 updateMemoryDipslay() {  
@@ -117,19 +149,19 @@ updateMemoryDipslay() {
 }
 
 updateHistory() {
-    
-    // top to bottom
     updateHistoryArr.unshift(this.history);
     updateHistoryArr.pop();
-    // bottom to top
-    //updateHistoryArr.shift();
-    //updateHistoryArr.push(this.history);
     this.historyTextElement.innerHTML = updateHistoryArr.join("<br>"); 
 }
 
 isOperation() {
     let isOperation = this.currentOperand.toString()
     if (isOperation.includes('+') || isOperation.includes('-') || isOperation.includes('*') ||isOperation.includes('/')) return true;
+}
+
+length() {
+    let currentOperandLenght = this.currentOperand.toString().length;
+    return currentOperandLenght;
 }
 }
 
@@ -140,6 +172,7 @@ const backspaceButton = document.getElementById('backspace');
 const allClearButton = document.getElementById('all-clear');
 const memoryValue = '';
 const currentOperandTextElement = document.getElementById('operationSpan');
+const currentOperand = ''; 
 const historyTextElement = document.getElementById('hd');
 const updateHistoryArr = [' ', ' ', ' ', ' ', ' '];
 const memoryDisplayTextElement = document.getElementById('memorySpan');
@@ -149,14 +182,16 @@ const memoryRecallButton = document.getElementById('memory-recall');
 const memoryAddButton = document.getElementById('memory-add');
 const memorySubtractButton = document.getElementById('memory-subtract');
 const computation = '';
-const isDecimalAllowed = '1';
+const isDecimalAllowed = '';
 const isZeroPrefixAllowed = '';
+const isMemoryRecalled = '';
+const previousInput = '';
 
-const calculator = new Calculator(currentOperandTextElement, historyTextElement, memoryDisplayTextElement, updateHistoryArr);
+const calculator = new Calculator(currentOperandTextElement, currentOperand, historyTextElement, memoryDisplayTextElement, updateHistoryArr);
+calculator.updateDipslay();
 
 numberButtons.forEach(div => {
     div.addEventListener('click', () => {
-        calculator.updateDipslay();
         calculator.appendNumber(div.innerText);
         calculator.updateDipslay();
     })
@@ -181,7 +216,7 @@ equalsButton.addEventListener('click', div => {
 })
 
 backspaceButton.addEventListener('click', div => {
-    calculator.backspace();
+    calculator.backspace('default');
     calculator.updateDipslay();
 })
 
