@@ -79,8 +79,7 @@ backspace(input) {
 }
 
 appendNumber(input) {
-    let currentOperandLenght = this.currentOperand.toString().length;
-    if (this.computation !== '') this.clear();
+    if (this.computation !== '' && input!== this.operation) this.clear();
     if (this.length() > 23) return;
     if (input === '.' && this.currentOperand.endsWith('.')) return;
     if (input === '.' && this.isDecimalAllowed === '0') return;
@@ -108,21 +107,24 @@ appendNumber(input) {
     }
     if (input !== '0') this.isZeroPrefixAllowed = '1';
     if (this.currentOperand.endsWith(this.operation)) this.isZeroPrefixAllowed = '0';
+    this.computation = '';
     this.previousInput = input;
 }
 
 chooseOperation (operation) {
-    if (this.computation) return;
+//    if (this.computation) return;
+console.log(this.currentOperand)
     if (this.currentOperand === '') return;
-    if (operation !== '' && this.currentOperand.endsWith(this.operation)) {
+    if (this.isOperation() && this.currentOperand.endsWith(this.operation)) {
         this.backspace();
     }
-    if (operation != '' && this.currentOperand.endsWith('.')) {
+    if (this.isOperation() && this.currentOperand.endsWith('.')) {
         this.backspace();
     }
     this.operation = operation;
     operation = '';
     this.isDecimalAllowed = '1';
+    console.log(this.operation)
     this.appendNumber(this.operation)
 }
 
@@ -135,8 +137,9 @@ compute() {
     if (!this.isOperation()) return;
     this.computation = eval(this.currentOperand);
     this.history = this.currentOperand.toString() + " " + "=" + " " + this.computation.toString();
-    this.operation = '';
-    this.currentOperand = this.computation;
+    this.operation = undefined;
+    this.currentOperand = this.computation.toString();
+    console.log(this.computation)
     this.updateHistory();     
 }
 
@@ -149,8 +152,8 @@ updateMemoryDipslay() {
 }
 
 updateHistory() {
-    updateHistoryArr.unshift(this.history);
-    updateHistoryArr.pop();
+    updateHistoryArr.splice(updateHistoryArr.length, 1, this.history);
+    if(updateHistoryArr.length == 6) updateHistoryArr.shift();
     this.historyTextElement.innerHTML = updateHistoryArr.join("<br>"); 
 }
 
@@ -174,7 +177,7 @@ const memoryValue = '';
 const currentOperandTextElement = document.getElementById('operationSpan');
 const currentOperand = ''; 
 const historyTextElement = document.getElementById('hd');
-const updateHistoryArr = [' ', ' ', ' ', ' ', ' '];
+let updateHistoryArr = []//[' ', ' ', ' ', ' ', ' '];
 const memoryDisplayTextElement = document.getElementById('memorySpan');
 const memoryStoreButton = document.getElementById('memory-store');
 const memoryClearButton = document.getElementById('memory-clear');
