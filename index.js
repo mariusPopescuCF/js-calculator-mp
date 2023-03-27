@@ -36,6 +36,8 @@ memoryStore() {
 }
 
 memoryRecall() {
+    let current = parseFloat(this.memoryValue);
+    if (isNaN(current)) return;
     if (this.memoryValue === '') return;  
     if (this.currentOperand === this.memoryValue) return;
     if (this.previousInput === this.memoryValue && this.computation === '') return;
