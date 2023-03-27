@@ -114,8 +114,6 @@ appendNumber(input) {
 }
 
 chooseOperation (operation) {
-//    if (this.computation) return;
-console.log(this.currentOperand)
     if (this.currentOperand === '') return;
     if (this.isOperation() && this.currentOperand.endsWith(this.operation)) {
         this.backspace();
@@ -126,14 +124,12 @@ console.log(this.currentOperand)
     this.operation = operation;
     operation = '';
     this.isDecimalAllowed = '1';
-    console.log(this.operation)
     this.appendNumber(this.operation)
 }
 
 compute() {
     let current = parseFloat(this.currentOperand);
-    //if (this.currentOperand.endsWith(this.operation) || this.currentOperand.endsWith(".")) this.backspace(); // in caz ca ultimul char este . sau operator, sterge ultimul char.
-    if (this.currentOperand.endsWith(this.operation) || this.currentOperand.endsWith(".")) return; // // in caz ca ultimul char este . sau operator, ignora.
+    if (this.currentOperand.endsWith(this.operation) || this.currentOperand.endsWith(".")) return;
     if (isNaN(current)) return;
     if (!this.operation) return;
     if (!this.isOperation()) return;
@@ -141,7 +137,6 @@ compute() {
     this.history = this.currentOperand.toString() + " " + "=" + " " + this.computation.toString();
     this.operation = undefined;
     this.currentOperand = this.computation.toString();
-    console.log(this.computation)
     this.updateHistory();     
 }
 
